@@ -13,7 +13,7 @@ Vue.config.productionTip = false
 
 const routes = [
   {path:'/',component:Todos},
-  {path:'todo/:id',component:Todo,name:'todo'}
+  {path:'/todo/:id',component:Todo,name:'todo'}
 ]
 
 const router = new VueRouter({

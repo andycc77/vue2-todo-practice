@@ -23,7 +23,7 @@ Route::get('/todos', function (){
 });
 
 Route::post('/todo/create', function (Request $request){
-    $data = ['title'=>$request->get('title')];
+    $data = ['title'=>$request->get('title'),'completed'=>0];
     $todo = Todo::create($data);
     return $todo;
 });
@@ -37,3 +37,7 @@ Route::get('/todo/{todo}', function (Todo $todo){
     return $todo;
 });
 
+Route::delete('/todo/{todo}/delete', function (Todo $todo){
+    $todo->delete();
+    return response()->json(['deleted'],204);
+});
