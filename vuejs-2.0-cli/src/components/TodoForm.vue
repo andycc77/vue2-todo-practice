@@ -1,14 +1,12 @@
 <template>
-    <div>
-      <form @submit.prevent="addTodo(newTodo)">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Add a new todo" v-model="newTodo.title">
-        </div>
-        <div class="form-group">
-          <button class="btn btn-success" type="submit">Add Todo</button>
-        </div>
-      </form>
-    </div>
+    <form @submit.prevent="addTodo(newTodo)">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Add a new todo" v-model="newTodo.title">
+      </div>
+      <div class="form-group">
+        <button class="btn btn-success" type="submit">Add Todo</button>
+      </div>
+    </form>
 </template>
 
 <script>

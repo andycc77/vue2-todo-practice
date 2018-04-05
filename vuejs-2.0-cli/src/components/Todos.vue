@@ -1,6 +1,5 @@
 <template>
-    <div>
-      <ul class="list-group">
+      <ul class="list-group" v-if="todos.length > 0">
         <li class="list-group-item"
             v-for="(todo, index) in todos"
             :class="{'completed':todo.completed}">
@@ -16,7 +15,6 @@
           >Delete</button>
         </li>
       </ul>
-    </div>
 </template>
 
 <script>

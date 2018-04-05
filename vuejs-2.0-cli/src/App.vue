@@ -14,10 +14,14 @@ export default {
   data(){
     return {
       message:'Hello World',
-      todos:[
-        {id:1, title:'Learn Vuejs', completed:false}
-      ]
+      todos:[]
     }
+  },
+  mounted(){
+    this.axios.get('http://127.0.0.1:8000/api/todos').then(response => {
+      this.todos = response.data
+      // console.log(response.data)
+    });
   },
   computed:{
     todoCount(){
