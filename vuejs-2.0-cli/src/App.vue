@@ -1,14 +1,11 @@
 <template>
   <div id="app">
-    <todos :todos="todos"></todos>
-    <todo-form :todos="todos"></todo-form>
+    <router-view :todos="todos"></router-view>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld'
-import Todos from './components/Todos'
-import TodoForm from './components/TodoForm'
 export default {
   name: 'App',
   data(){
@@ -29,9 +26,7 @@ export default {
     }
   },
   components: {
-    HelloWorld,
-    Todos,
-    TodoForm
+    HelloWorld
   }
 }
 </script>

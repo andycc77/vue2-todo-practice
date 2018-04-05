@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-
+use App\Todo;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,13 +13,27 @@ use Illuminate\Http\Request;
 |
 */
 
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
 Route::get('/todos', function (){
-    return response()->json([
-        ['id'=>1, 'title'=>'learn vue js', 'completed'=>false],
-        ['id'=>2, 'title'=>'learn vue js2', 'completed'=>false]
-    ]);
+    $todos = Todo::all();
+    return $todos;
 });
+
+Route::post('/todo/create', function (Request $request){
+    $data = ['title'=>$request->get('title')];
+    $todo = Todo::create($data);
+    return $todo;
+});
+
+Route::patch('/todo/{todo}/completed', function (Todo $todo){
+    $todo->completed = !$todo->completed;
+    $todo->save();
+});
+
+Route::get('/todo/{todo}', function (Todo $todo){
+    return $todo;
+});
+

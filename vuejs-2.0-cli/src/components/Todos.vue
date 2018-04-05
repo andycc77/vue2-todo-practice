@@ -1,9 +1,10 @@
 <template>
+  <div>
       <ul class="list-group" v-if="todos.length > 0">
         <li class="list-group-item"
             v-for="(todo, index) in todos"
             :class="{'completed':todo.completed}">
-          {{ todo.title }}
+          <router-link :to="{ name: 'todo', params: { id: todo.id }}">{{ todo.title }}</router-link>
           <button
             class="btn btn-xs pull-right margin-right-10"
             @click="toggleCompletion(todo)"
@@ -15,9 +16,12 @@
           >Delete</button>
         </li>
       </ul>
+      <Todo-form :todos="todos"></Todo-form>
+  </div>
 </template>
 
 <script>
+  import TodoForm from './TodoForm'
     export default {
         name: "todos",
         props: ['todos'],
@@ -28,6 +32,9 @@
           toggleCompletion(todo){
             todo.completed = !todo.completed
           }
+        },
+        components:{
+          TodoForm
         }
     }
 </script>
