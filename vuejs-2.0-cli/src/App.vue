@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view :todos="todos"></router-view>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -8,21 +8,12 @@
 import HelloWorld from './components/HelloWorld'
 export default {
   name: 'App',
-  data(){
-    return {
-      message:'Hello World',
-      todos:[]
-    }
-  },
   mounted(){
-    this.axios.get('http://127.0.0.1:8000/api/todos').then(response => {
-      this.todos = response.data
-      // console.log(response.data)
-    });
+    this.$store.dispatch('getTodos')
   },
   computed:{
     todoCount(){
-      return this.todos.length;
+      return 1
     }
   },
   components: {

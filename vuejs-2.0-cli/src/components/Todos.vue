@@ -1,6 +1,6 @@
 <template>
   <div>
-      <ul class="list-group" v-if="todos.length > 0">
+      <ul class="list-group">
         <li class="list-group-item"
             v-for="(todo, index) in todos"
             :class="{'completed':todo.completed}">
@@ -16,7 +16,7 @@
           >Delete</button>
         </li>
       </ul>
-      <Todo-form :todos="todos"></Todo-form>
+      <todo-form></todo-form>
   </div>
 </template>
 
@@ -24,7 +24,11 @@
   import TodoForm from './TodoForm'
     export default {
         name: "todos",
-        props: ['todos'],
+        computed:{
+          todos(){
+            return this.$store.state.todos
+          },
+        },
         methods:{
           deleteTodo(index, todo){
             this.axios.delete('http://127.0.0.1:8000/api/todo/' + todo.id + '/delete').then(response => {
