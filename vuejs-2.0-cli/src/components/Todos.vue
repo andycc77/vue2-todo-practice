@@ -12,7 +12,7 @@
           >{{ todo.completed? 'undo':'completed' }}</button>
           <button
             class="btn btn-warning btn-xs pull-right"
-            @click="deleteTodo(index, todo)"
+            @click="deleteTodo(todo, index)"
           >Delete</button>
         </li>
       </ul>
@@ -30,17 +30,11 @@
           },
         },
         methods:{
-          deleteTodo(index, todo){
-            this.axios.delete('http://127.0.0.1:8000/api/todo/' + todo.id + '/delete').then(response => {
-              console.log(response.data)
-              this.todos.splice(index,1)
-            })
+          deleteTodo(todo, index){
+            this.$store.dispatch('removeTodo', {todo, index})
           },
           toggleCompletion(todo){
-            this.axios.patch('http://127.0.0.1:8000/api/todo/' + todo.id + '/completed').then(response => {
-              console.log(response.data)
-              todo.completed = !todo.completed
-            })
+            this.$store.dispatch('completeTodo', todo)
           }
         },
         components:{

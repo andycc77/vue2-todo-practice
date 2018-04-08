@@ -24,11 +24,21 @@ const router = new VueRouter({
 
 const store = new Vuex.Store({
   state: {
-    todos: []
+    todos: [],
+    newTodo:{id:null,title:'', completed:false}
   },
   mutations: {
     get_todos_list (state, todos){
       state.todos = todos
+    },
+    complete_todo(state, todo){
+      todo.completed = !todo.completed
+    },
+    delete_todo(state, index){
+      state.todos.splice(index, 1)
+    },
+    add_todo(state, todo){
+      state.todos.push(todo)
     }
   },
   actions : {
@@ -36,6 +46,22 @@ const store = new Vuex.Store({
       Vue.axios.get('http://127.0.0.1:8000/api/todos').then(response => {
         store.commit('get_todos_list', response.data)
       });
+    },
+    completeTodo(store, todo){
+      Vue.axios.patch('http://127.0.0.1:8000/api/todo/' + todo.id + '/completed').then(response =>{
+        store.commit('complete_todo', todo)
+      })
+    },
+    removeTodo(store, payload){
+      Vue.axios.delete('http://127.0.0.1:8000/api/todo/' + payload.todo.id + '/delete').then(response =>{
+        store.commit('delete_todo', payload.index)
+      })
+    },
+    saveTodo(store, todo){
+      Vue.axios.post('http://127.0.0.1:8000/api/todo/create',{title:todo.title}).then(response =>{
+        store.commit('add_todo', response.data)
+      })
+      store.state.newTodo = {id:null,title:'', completed:false}
     }
   }
 })
